@@ -1,5 +1,7 @@
 # Third-party notices
 
+**Review date:** 20 November 2026. The compatibility wrappers and package integration are community changes; the source-derived portions are identified below with their upstream projects and patch commits.
+
 This repository contains compatibility files derived from upstream
 open-source projects. It is not an official release of any of those projects.
 
