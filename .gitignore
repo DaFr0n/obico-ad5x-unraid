@@ -3,6 +3,8 @@ moonraker-obico.cfg
 turnserver.conf
 .env
 *.secret
+turn-secret.txt
+**/turn-secret.txt
 
 # Obico persistent state
 db.sqlite3
