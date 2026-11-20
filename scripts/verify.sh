@@ -45,9 +45,17 @@ echo
 if docker exec moonraker-obico \
     grep -q 'ZMOD PATCH: self.ensure_api_key()' \
     /opt/moonraker-obico/moonraker_obico/moonraker_conn.py 2>/dev/null; then
-    pass "ZMOD Moonraker API-key patch active"
+    pass "ZMOD Moonraker API-key acquisition patch active"
 else
-    fail "ZMOD Moonraker API-key patch not detected"
+    fail "ZMOD Moonraker API-key acquisition patch not detected"
+fi
+
+if docker exec moonraker-obico \
+    grep -q 'ZMOD PATCH: Moonraker API-key auth disabled' \
+    /opt/moonraker-obico/moonraker_obico/moonraker_conn.py 2>/dev/null; then
+    pass "ZMOD Moonraker WebSocket API-key header patch active"
+else
+    fail "ZMOD Moonraker WebSocket API-key header patch not detected"
 fi
 
 if docker exec moonraker-obico \
@@ -87,6 +95,23 @@ if docker inspect obico --format '{{range .Mounts}}{{println .Destination}}{{end
     pass "Obico TURN patch directory mounted"
 else
     fail "Obico TURN patch directory not mounted"
+fi
+
+if docker exec obico sh -c '
+    grep -q "TURN_SERVER = os.environ.get" /app/obico/backend/config/settings.py &&
+    grep -q "def turn_config" /app/obico/backend/lib/turn.py &&
+    grep -q "turn_config" /app/obico/backend/app/context_processors.py &&
+    grep -q "turn_config" /app/obico/backend/api/octoprint_views.py
+' 2>/dev/null; then
+    pass "Obico backend TURN compatibility patch installed"
+else
+    fail "Obico backend TURN compatibility patch not detected"
+fi
+
+if docker exec obico test -s /app/obico/frontend/builds/frontend/js/root.js 2>/dev/null; then
+    pass "Obico TURN-enabled frontend build installed"
+else
+    fail "Obico TURN-enabled frontend build not detected"
 fi
 
 echo
