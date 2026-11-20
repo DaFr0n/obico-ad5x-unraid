@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>Moonraker-Obico-AD5X</Name>
+  <Repository>ghcr.io/thespaghettidetective/moonraker-obico:latest</Repository>
+  <Registry>https://github.com/TheSpaghettiDetective/moonraker-obico/pkgs/container/moonraker-obico</Registry>
+  <Network>bridge</Network>
+  <ExtraNetworks/>
+  <MyIP/>
+  <MyMAC/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/TheSpaghettiDetective/moonraker-obico/issues</Support>
+  <Project>https://www.obico.io/</Project>
+  <ReadMe>https://github.com/TheSpaghettiDetective/moonraker-obico</ReadMe>
+  <Overview>Moonraker-Obico client with compatibility patches for FlashForge AD5X printers running ZMOD and self-hosted Obico TURN/WebRTC support.</Overview>
+  <Category>Tools:Utilities</Category>
+  <WebUI/>
+  <TemplateURL/>
+  <Icon>https://github.com/TheSpaghettiDetective.png</Icon>
+  <ExtraParams>--restart unless-stopped --entrypoint /zmod-entrypoint.sh</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <Memory/>
+  <DateInstalled/>
+  <DonateText/>
+  <DonateLink/>
+  <Requires>Requires a self-hosted Obico server and an AD5X running ZMOD.</Requires>
+
+  <Config Name="ZMOD Startup Patch"
+          Target="/zmod-entrypoint.sh"
+          Default="/mnt/cache/appdata/moonraker-obico/patch/zmod-entrypoint.sh"
+          Mode="ro"
+          Description="Persistent startup wrapper that applies the AD5X/ZMOD Moonraker compatibility patch."
+          Type="Path"
+          Display="always"
+          Required="true"
+          Mask="false">/mnt/cache/appdata/moonraker-obico/patch/zmod-entrypoint.sh</Config>
+
+  <Config Name="Compatibility Patches"
+          Target="/zmod-patch"
+          Default="/mnt/cache/appdata/moonraker-obico/patch"
+          Mode="ro"
+          Description="Persistent moonraker-obico TURN/WebRTC compatibility patch directory."
+          Type="Path"
+          Display="always"
+          Required="true"
+          Mask="false">/mnt/cache/appdata/moonraker-obico/patch</Config>
+
+  <Config Name="Printer Config"
+          Target="/opt/printer_data/config"
+          Default="/mnt/cache/appdata/moonraker-obico/config"
+          Mode="rw"
+          Description="Persistent moonraker-obico configuration directory."
+          Type="Path"
+          Display="always"
+          Required="true"
+          Mask="false">/mnt/cache/appdata/moonraker-obico/config</Config>
+
+  <Config Name="Printer Logs"
+          Target="/opt/printer_data/logs"
+          Default="/mnt/cache/appdata/moonraker-obico/logs"
+          Mode="rw"
+          Description="Persistent moonraker-obico log directory."
+          Type="Path"
+          Display="always"
+          Required="true"
+          Mask="false">/mnt/cache/appdata/moonraker-obico/logs</Config>
+
+  <TailscaleStateDir/>
+</Container>

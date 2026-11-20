@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>Obico-TURN</Name>
+  <Repository>coturn/coturn:latest</Repository>
+  <Registry>https://hub.docker.com/r/coturn/coturn</Registry>
+  <Network>host</Network>
+  <ExtraNetworks/>
+  <MyIP/>
+  <MyMAC/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/coturn/coturn/issues</Support>
+  <Project>https://github.com/coturn/coturn</Project>
+  <ReadMe>https://github.com/coturn/coturn</ReadMe>
+  <Overview>Coturn TURN relay for self-hosted Obico WebRTC camera streaming.</Overview>
+  <Category>Network:Other Tools:Utilities</Category>
+  <WebUI/>
+  <TemplateURL/>
+  <Icon>https://github.com/coturn.png</Icon>
+  <ExtraParams/>
+  <PostArgs>-c /etc/coturn/turnserver.conf</PostArgs>
+  <CPUset/>
+  <Memory/>
+  <DateInstalled/>
+  <DonateText/>
+  <DonateLink/>
+  <Requires>Requires turnserver.conf to be created before the container is started. Router port forwarding is required for remote WebRTC access.</Requires>
+
+  <Config Name="TURN Config"
+          Target="/etc/coturn/turnserver.conf"
+          Default="/mnt/cache/appdata/obico-turn/turnserver.conf"
+          Mode="ro"
+          Description="Coturn configuration containing the TURN shared secret, LAN IP, public IP and relay port range."
+          Type="Path"
+          Display="always"
+          Required="true"
+          Mask="false">/mnt/cache/appdata/obico-turn/turnserver.conf</Config>
+
+  <TailscaleStateDir/>
+</Container>

@@ -1,0 +1,18 @@
+[server]
+url = http://YOUR_OBICO_SERVER_IP:3334
+auth_token = YOUR_LINKED_PRINTER_AUTH_TOKEN
+
+[moonraker]
+host = YOUR_AD5X_IP
+port = 7125
+
+[webcam]
+disable_video_streaming = False
+snapshot_url = http://YOUR_AD5X_IP/webcam/?action=snapshot
+stream_url = http://YOUR_AD5X_IP/webcam/?action=stream
+
+[logging]
+path = /opt/printer_data/logs/moonraker-obico.log
+level = INFO
+
+[tunnel]

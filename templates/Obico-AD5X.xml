@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>Obico-AD5X</Name>
+  <Repository>ghcr.io/imagegenius/obico:latest</Repository>
+  <Registry>https://github.com/orgs/imagegenius/packages/container/package/obico</Registry>
+  <Network>bridge</Network>
+  <ExtraNetworks/>
+  <MyIP/>
+  <MyMAC/>
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/imagegenius/docker-obico/issues/new/choose</Support>
+  <Project>https://www.obico.io/</Project>
+  <ReadMe>https://github.com/imagegenius/docker-obico#readme</ReadMe>
+  <Overview>Self-hosted Obico server with TURN/WebRTC compatibility support for the AD5X/ZMOD community package.</Overview>
+  <Category>Cloud: Tools:Utilities</Category>
+  <WebUI>http://[IP]:[PORT:3334]</WebUI>
+  <TemplateURL/>
+  <Icon>https://raw.githubusercontent.com/imagegenius/templates/main/unraid/img/obico.png</Icon>
+  <ExtraParams>--entrypoint /config/turn-patch/entrypoint.sh --cpus=4</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <Memory/>
+  <DateInstalled/>
+  <DonateText/>
+  <DonateLink/>
+  <Requires>Requires Redis and the compatibility files supplied by this community package.</Requires>
+
+  <Config Name="WebUI"
+          Target="3334"
+          Default="3334"
+          Mode="tcp"
+          Description="Obico WebUI port."
+          Type="Port"
+          Display="always"
+          Required="true"
+          Mask="false">3334</Config>
+
+  <Config Name="REDIS_URL"
+          Target="REDIS_URL"
+          Default="redis://YOUR_UNRAID_IP:6379"
+          Mode=""
+          Description="Redis URL, for example redis://192.168.1.2:6379"
+          Type="Variable"
+          Display="always"
+          Required="true"
+          Mask="false">redis://YOUR_UNRAID_IP:6379</Config>
+
+  <Config Name="HOST_IP"
+          Target="HOST_IP"
+          Default="YOUR_UNRAID_IP"
+          Mode=""
+          Description="LAN IP or hostname used to access the Obico frontend."
+          Type="Variable"
+          Display="always"
+          Required="true"
+          Mask="false">YOUR_UNRAID_IP</Config>
+
+  <Config Name="TURN Secret"
+          Target="TURN_SECRET"
+          Default=""
+          Mode=""
+          Description="64-character TURN shared secret. Must exactly match static-auth-secret in Coturn."
+          Type="Variable"
+          Display="always"
+          Required="true"
+          Mask="true"></Config>
+
+  <Config Name="TURN Server"
+          Target="TURN_SERVER"
+          Default="YOUR_UNRAID_IP"
+          Mode=""
+          Description="LAN IP or resolvable hostname of the Coturn server."
+          Type="Variable"
+          Display="always"
+          Required="true"
+          Mask="false">YOUR_UNRAID_IP</Config>
+
+  <Config Name="TURN Port"
+          Target="TURN_PORT"
+          Default="3478"
+          Mode=""
+          Description="Coturn listening port."
+          Type="Variable"
+          Display="always"
+          Required="true"
+          Mask="false">3478</Config>
+
+  <Config Name="TURN Transports"
+          Target="TURN_TRANSPORTS"
+          Default="udp,tcp"
+          Mode=""
+          Description="TURN transports advertised by Obico."
+          Type="Variable"
+          Display="always"
+          Required="true"
+          Mask="false">udp,tcp</Config>
+
+  <Config Name="TURN Patch"
+          Target="/config/turn-patch"
+          Default="/mnt/cache/appdata/obico/turn-patch"
+          Mode="rw"
+          Description="Persistent Obico server and frontend TURN compatibility patch directory."
+          Type="Path"
+          Display="always"
+          Required="true"
+          Mask="false">/mnt/cache/appdata/obico/turn-patch</Config>
+
+  <Config Name="Appdata"
+          Target="/config"
+          Default="/mnt/cache/appdata/obico"
+          Mode="rw"
+          Description="Persistent Obico database, configuration, logs and timelapses."
+          Type="Path"
+          Display="advanced"
+          Required="true"
+          Mask="false">/mnt/cache/appdata/obico</Config>
+
+  <Config Name="Intel iGPU"
+          Target="/dev/dri/"
+          Default=""
+          Mode=""
+          Description="Optional Intel GPU device."
+          Type="Device"
+          Display="advanced"
+          Required="false"
+          Mask="false">/dev/dri/</Config>
+
+  <Config Name="PUID"
+          Target="PUID"
+          Default="99"
+          Mode="{3}"
+          Description="UID used by the ImageGenius container."
+          Type="Variable"
+          Display="advanced-hide"
+          Required="true"
+          Mask="false">99</Config>
+
+  <Config Name="PGID"
+          Target="PGID"
+          Default="100"
+          Mode="{3}"
+          Description="GID used by the ImageGenius container."
+          Type="Variable"
+          Display="advanced-hide"
+          Required="true"
+          Mask="false">100</Config>
+
+  <Config Name="UMASK"
+          Target="UMASK"
+          Default="022"
+          Mode="{3}"
+          Description="UMASK for newly created files."
+          Type="Variable"
+          Display="advanced-hide"
+          Required="false"
+          Mask="false">022</Config>
+
+  <TailscaleStateDir/>
+</Container>
