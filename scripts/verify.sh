@@ -124,6 +124,12 @@ else
     fail "Obico TURN environment incomplete"
 fi
 
+if docker exec obico sh -c 'test -n "${DJANGO_SECRET_KEY:-}"' 2>/dev/null; then
+    pass "Unique Django secret key environment variable is set"
+else
+    warn "DJANGO_SECRET_KEY is not set; upstream default SECRET_KEY fallback may be in use"
+fi
+
 if docker exec obico-turn sh -c \
     'test -r /etc/coturn/turnserver.conf' 2>/dev/null; then
     pass "Coturn configuration mounted"
