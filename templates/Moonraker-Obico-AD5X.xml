@@ -10,7 +10,7 @@
   <Shell>sh</Shell>
   <Privileged>false</Privileged>
   <Support>https://github.com/TheSpaghettiDetective/moonraker-obico/issues</Support>
-  <Project>https://www.obico.io/</Project>
+  <Project>https://github.com/TheSpaghettiDetective/moonraker-obico</Project>
   <ReadMe>https://github.com/TheSpaghettiDetective/moonraker-obico</ReadMe>
   <Overview>Moonraker-Obico client with compatibility patches for FlashForge AD5X printers running ZMOD and self-hosted Obico TURN/WebRTC support.</Overview>
   <Category>Tools:Utilities</Category>
