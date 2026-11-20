@@ -36,6 +36,16 @@
           Required="true"
           Mask="false">3334</Config>
 
+  <Config Name="Django Secret Key"
+          Target="DJANGO_SECRET_KEY"
+          Default=""
+          Mode=""
+          Description="Unique randomly generated Django secret key. Keep private. Existing installations should preserve their current value when updating the template."
+          Type="Variable"
+          Display="always"
+          Required="false"
+          Mask="true"></Config>
+
   <Config Name="REDIS_URL"
           Target="REDIS_URL"
           Default="redis://YOUR_UNRAID_IP:6379"
