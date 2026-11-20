@@ -11,7 +11,7 @@
   <Privileged>false</Privileged>
   <Support>https://github.com/imagegenius/docker-obico/issues/new/choose</Support>
   <Project>https://github.com/TheSpaghettiDetective/obico-server</Project>
-  <ReadMe>https://github.com/TheSpaghettiDetective/obico-server#readme</ReadMe>
+  <ReadMe>https://github.com/imagegenius/docker-obico#readme</ReadMe>
   <Overview>Self-hosted Obico server with TURN/WebRTC compatibility support for the AD5X/ZMOD community package.</Overview>
   <Category>Cloud: Tools:Utilities</Category>
   <WebUI>http://[IP]:[PORT:3334]</WebUI>
