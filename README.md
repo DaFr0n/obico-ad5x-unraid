@@ -221,6 +221,16 @@ Never publish:
 - private application configuration
 - other credentials from appdata
 
+**Important Django security setting:** the upstream-derived `obico/settings.py`
+retains Obico's public fallback `SECRET_KEY` when `DJANGO_SECRET_KEY` is not
+provided. Set a unique, randomly generated `DJANGO_SECRET_KEY` for a new
+installation and keep it private. The Unraid template exposes this as a
+masked environment variable. On an existing installation, check and preserve
+its current key before changing it; changing the key can affect existing
+signed media URLs and sessions. Follow
+[Obico's secret-key guidance](https://www.obico.io/docs/server-guides/configure/#re-generate-django-secret-key)
+before rotating it.
+
 Example configuration files in this repository contain placeholders only.
 
 ## Verification
