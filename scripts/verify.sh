@@ -137,6 +137,64 @@ else
     fail "Coturn configuration unavailable"
 fi
 
+if docker exec obico-turn sh -c \
+    "! grep -Eiq '^[[:space:]]*verbose([[:space:]]*(#.*)?)?
+echo
+
+# Compare secrets without displaying either secret.
+TURN_FILE_SECRET=$(
+    docker exec obico-turn sh -c \
+    "sed -n 's/^[[:space:]]*static-auth-secret[[:space:]]*=[[:space:]]*//p' /etc/coturn/turnserver.conf | head -n1" \
+    2>/dev/null | tr -d '\r\n'
+)
+
+OBICO_SECRET=$(
+    docker exec obico sh -c 'printf "%s" "${TURN_SECRET:-}"' 2>/dev/null
+)
+
+if [ -n "$TURN_FILE_SECRET" ] && [ -n "$OBICO_SECRET" ]; then
+    if [ "$TURN_FILE_SECRET" = "$OBICO_SECRET" ]; then
+        pass "Obico and Coturn TURN secrets match"
+    else
+        fail "Obico and Coturn TURN secrets do not match"
+    fi
+else
+    fail "Unable to obtain TURN secret from one or both containers"
+fi
+
+unset TURN_FILE_SECRET
+unset OBICO_SECRET
+
+echo
+
+if command -v ss >/dev/null 2>&1; then
+    if ss -lntu 2>/dev/null | grep -q ':3478[[:space:]]'; then
+        pass "TURN port 3478 is listening"
+    else
+        fail "TURN port 3478 does not appear to be listening"
+    fi
+else
+    warn "ss command unavailable; TURN listener not checked"
+fi
+
+echo
+echo "============================"
+echo "PASS: $PASS"
+echo "WARN: $WARN"
+echo "FAIL: $FAIL"
+
+if [ "$FAIL" -gt 0 ]; then
+    exit 1
+fi
+
+exit 0
+ /etc/coturn/turnserver.conf" \
+    2>/dev/null; then
+    pass "Coturn verbose logging disabled"
+else
+    fail "Coturn verbose logging is enabled; remove the verbose option from the persistent configuration"
+fi
+
 echo
 
 # Compare secrets without displaying either secret.
