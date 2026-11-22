@@ -13,6 +13,7 @@ static-auth-secret=YOUR_64_CHARACTER_TURN_SECRET
 min-port=49160
 max-port=49200
 
+# Keep verbose disabled: it can create very large daily logs under /var/tmp.
 no-cli
 no-tls
 no-dtls
