@@ -144,6 +144,13 @@ The Obico container also requires:
 
 See [config-examples/turnserver.conf.example](config-examples/turnserver.conf.example).
 
+Keep Coturn's `verbose` option disabled. Verbose mode can generate very large
+daily log files under `/var/tmp` inside the container and consume the
+container's writable layer. The Unraid template bind-mounts the persistent
+host configuration at `/mnt/cache/appdata/obico-turn/turnserver.conf`, so
+make configuration changes in that host file rather than only editing the
+container's copy. The verification script checks that verbose mode is off.
+
 ## Coturn external IP
 
 Coturn must know both the public Internet IPv4 address and the LAN address of
