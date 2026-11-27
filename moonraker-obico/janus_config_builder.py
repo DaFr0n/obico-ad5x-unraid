@@ -413,3 +413,14 @@ def build_janus_config(webcams, printer_auth_token, ws_port, admin_ws_port, turn
     build_janus_transport_websocket_jcfg(ws_port, admin_ws_port)
 
     return (janus_bin_path, ld_lib_path)
+
+
+# Compatibility with current Moonraker-Obico app.py.
+# Janus reads relay credentials at startup, so renew within 24 hours
+# of expiry and restart the webcam stream with fresh credentials.
+RELAY_RENEW_BEFORE_SECONDS = 24 * 3600
+
+
+def relay_renewal_due(relay, now):
+    expires_at = (relay or {}).get('expires_at')
+    return bool(expires_at) and now >= expires_at - RELAY_RENEW_BEFORE_SECONDS
